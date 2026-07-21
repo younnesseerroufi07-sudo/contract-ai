@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContractAI - AI-Powered Legal Contract Analysis Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-lg shadow-lg shadow-indigo-500/20">C</div>
+                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">ContractAI</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openModal('business')" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 rounded-xl transition-all">Business Plan</button>
+                <button onclick="openModal('architecture')" class="px-4 py-2 text-sm font-medium text-indigo-400 bg-indigo-950/50 hover:bg-indigo-900/50 border border-indigo-500/30 rounded-xl transition-all">Architecture</button>
+                <button onclick="openModal('upgrade')" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-lg shadow-indigo-600/25 transition-all">Upgrade</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="max-w-5xl mx-auto px-6 py-20 text-center flex-grow flex flex-col items-center justify-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-6">
+            ✨ Next-Gen AI Legal Contract Review for Enterprises
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            Analyze Legal Contracts & <br><span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Detect Risks in Seconds</span>
+        </h1>
+        <p class="text-lg text-slate-400 max-w-2xl mb-10">
+            A comprehensive SaaS platform helping legal teams and global enterprises review contracts, spot loopholes, and mitigate disputes with enterprise-grade security.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <button onclick="openModal('architecture')" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-2xl shadow-xl shadow-indigo-600/30 transition-all">Explore Architecture</button>
+            <button onclick="openModal('business')" class="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold rounded-2xl transition-all">Business Plan (€2000/yr)</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+        &copy; 2026 ContractAI. All rights reserved. Enterprise B2B SaaS Solution.
+    </footer>
+
+    <!-- Modals Container -->
+    <div id="modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/50 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
+            <div id="modal-content">
+                <!-- Dynamic Content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (type === 'architecture') {
+                content.innerHTML = `
+                    <h3 class="text-xl font-bold mb-4 text-white">ContractAI Full System Architecture</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left text-sm text-slate-300">
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+                            <strong class="text-indigo-400 block mb-2">Core System & Interfaces:</strong>
+                            <ul class="space-y-1">
+                                <li>• Landing Page & Auth (JWT, 2FA, OAuth)</li>
+                                <li>• Dashboard & Company Workspace</li>
+                                <li>• Upload & AI Analysis Engine</li>
+                                <li>• AI Legal Chat & Risk Scoring</li>
+                                <li>• Contract Comparison & PDF Reports</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+                            <strong class="text-indigo-400 block mb-2">Infrastructure & Plans:</strong>
+                            <ul class="space-y-1">
+                                <li>• Free Trial (30 days) & Stripe Billing</li>
+                                <li>• Business Plan (€2000/yr) & Enterprise</li>
+                                <li>• Admin Panel, Audit Logs & API</li>
+                                <li>• PostgreSQL, Prisma ORM, AWS S3</li>
+                                <li>• Docker, Clean Architecture, Production Ready</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button onclick="closeModal()" class="w-full mt-6 py-3 bg-indigo-600 text-white font-medium rounded-xl">Close</button>
+                `;
+            } else if (type === 'business') {
+                content.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-white">Business Plan</h3>
+                    <p class="text-slate-400 text-sm mb-4">Tailored specifically for businesses and enterprises at €2,000 per year.</p>
+                    <ul class="text-sm text-slate-300 space-y-2 mb-6 text-left">
+                        <li>✔️ Unlimited Contract Analysis (Fair Use Policy)</li>
+                        <li>✔️ All AI Features & Contract Comparison</li>
+                        <li>✔️ Advanced PDF Reports, Dashboard, & Dedicated Support</li>
+                    </ul>
+                    <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-medium rounded-xl">Choose Plan via Stripe</button>
+                `;
+            } else if (type === 'upgrade') {
+                content.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-white">Instant Account Upgrade</h3>
+                    <p class="text-slate-400 text-sm mb-4">Upgrade to the professional tier and unlock full AI-powered contract review capabilities.</p>
+                    <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-medium rounded-xl">Proceed to Checkout</button>
+                `;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
