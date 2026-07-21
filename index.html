@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تحليل العقود بالذكاء الاصطناعي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-indigo-600">ContractAI SaaS</h1>
+            <div class="space-x-4 space-x-reverse">
+                <span class="text-sm text-gray-600">خطة الأعمال (Business Plan)</span>
+                <a href="#pricing" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">ترقية الحساب (2000€)</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-extrabold text-gray-900">حلل عقودك القانونية بالذكاء الاصطناعي في ثوانٍ</h2>
+            <p class="mt-2 text-gray-600">اكتشف البنود الخطيرة، المخاطر الخفية، واحصل على تقارير فورية.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100">
+            <form id="uploadForm" class="space-y-6">
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-indigo-500 transition cursor-pointer">
+                    <input type="file" id="contractFile" name="contractFile" accept=".pdf,.doc,.docx" class="hidden" required>
+                    <label for="contractFile" class="cursor-pointer">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        <span class="mt-2 block text-sm font-medium text-gray-700">اضغط لرفع ملف العقد أو قم بسحبه هنا (PDF / Word)</span>
+                        <span id="fileName" class="mt-1 block text-xs text-indigo-600 font-semibold"></span>
+                    </label>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">تحليل العقد الآن</button>
+            </form>
+        </div>
+
+        <div id="resultSection" class="mt-10 bg-white p-8 rounded-2xl shadow-md border border-gray-100 hidden">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">تقرير التحليل القانوني</h3>
+            <div class="mb-4">
+                <span class="font-semibold text-gray-700">نسبة المخاطر: </span>
+                <span id="riskScore" class="px-3 py-1 rounded-full text-sm font-bold"></span>
+            </div>
+            <div class="mb-4">
+                <h4 class="font-semibold text-red-600 mb-2">البنود الخطيرة والثغرات:</h4>
+                <ul id="dangerousClauses" class="list-disc list-inside space-y-1 text-gray-700 bg-red-50 p-4 rounded-lg"></ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-700 mb-2">الملخص والتوصيات:</h4>
+                <p id="summaryText" class="text-gray-600 bg-gray-50 p-4 rounded-lg"></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const fileInput = document.getElementById('contractFile');
+        const fileNameSpan = document.getElementById('fileName');
+        const uploadForm = document.getElementById('uploadForm');
+        const resultSection = document.getElementById('resultSection');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameSpan.textContent = `الملف المختار: ${e.target.files[0].name}`;
+            }
+        });
+
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('contractFile', fileInput.files[0]);
+            formData.append('userId', 'user-test-id');
+
+            try {
+                alert('جاري تحليل العقد بواسطة الذكاء الاصطناعي...');
+                const response = await fetch('http://localhost:5000/api/analyze-contract', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultSection.classList.remove('hidden');
+                    document.getElementById('riskScore').textContent = `${data.analysis.riskScore} / 100`;
+                    document.getElementById('riskScore').className = data.analysis.riskScore > 50 ? 'bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-bold' : 'bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold';
+                    
+                    const clausesList = document.getElementById('dangerousClauses');
+                    clausesList.innerHTML = '';
+                    data.analysis.dangerousClauses.forEach(clause => {
+                        const li = document.createElement('li');
+                        li.textContent = clause;
+                        clausesList.appendChild(li);
+                    });
+
+                    document.getElementById('summaryText').textContent = data.analysis.summary;
+                } else {
+                    alert(data.error || 'حدث خطأ ما');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('تعذر الاتصال بالخادم.');
+            }
+        });
+    </script>
+</body>
+</html>
