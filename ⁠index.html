@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContractAI - المنصة الذكية لتحليل العقود القانونية</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-lg shadow-lg shadow-indigo-500/20">C</div>
+                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">ContractAI</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openModal('business')" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 rounded-xl transition-all">خطة الأعمال</button>
+                <button onclick="openModal('upgrade')" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-lg shadow-indigo-600/25 transition-all">ترقية الحساب</button>
+                <button onclick="openModal('free-month')" class="px-4 py-2 text-sm font-medium text-indigo-400 bg-indigo-950/50 hover:bg-indigo-900/50 border border-indigo-500/30 rounded-xl transition-all">🎁 شهر بريميوم مجاناً!</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="max-w-5xl mx-auto px-6 py-20 text-center flex-grow flex flex-col items-center justify-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-6">
+            ✨ الذكاء الاصطناعي الجيل القادم للمراجعة القانونية
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+            حلّل عقودك القانونية بدقة <br><span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">واكتشف المخاطر في ثوانٍ</span>
+        </h1>
+        <p class="text-lg text-slate-400 max-w-2xl mb-10">
+            منصة SaaS متقدمة تساعد الإدارات القانونية والشركات على مراجعة العقود، اكتشاف الثغرات، وتجنب النزاعات القضائية بأعلى معايير الأمان.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <button onclick="openModal('upgrade')" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-2xl shadow-xl shadow-indigo-600/30 transition-all">ابدأ التجربة المجانية</button>
+            <button onclick="openModal('business')" class="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-semibold rounded-2xl transition-all">اكتشف خطة الأعمال (2000€)</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+        &copy; 2026 ContractAI. جميع الحقوق محفوظة لشركات الأعمال والمؤسسات.
+    </footer>
+
+    <!-- Modals Container -->
+    <div id="modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white bg-slate-800/50 w-8 h-8 rounded-full flex items-center justify-center">✕</button>
+            <div id="modal-content">
+                <!-- Dynamic Content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (type === 'business') {
+                content.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-white">خطة الأعمال (Business Plan)</h3>
+                    <p class="text-slate-400 text-sm mb-4">مصممة خصيصاً للشركات والمؤسسات الكبرى بـ 2000 يورو سنوياً.</p>
+                    <ul class="text-sm text-slate-300 space-y-2 mb-6 text-right">
+                        <li>✔️ تحليل غير محدود للعقود</li>
+                        <li>✔️ جميع خصائص الذكاء الاصطناعي والمقارنة</li>
+                        <li>✔️ تقارير PDF متقدمة ولوحة تحكم</li>
+                    </ul>
+                    <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-medium rounded-xl">اختر الخطة</button>
+                `;
+            } else if (type === 'upgrade') {
+                content.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-white">ترقية الحساب الفورية</h3>
+                    <p class="text-slate-400 text-sm mb-4">انتقل إلى المستوى الاحترافي وفعّل كافة صلاحيات الذكاء الاصطناعي الآن.</p>
+                    <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-medium rounded-xl">الانتقال لـ Stripe الدفع</button>
+                `;
+            } else if (type === 'free-month') {
+                content.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3 text-indigo-400">🎁 مبروك! شهر بريميوم مجاناً</h3>
+                    <p class="text-slate-400 text-sm mb-4">تم تفعيل فترة تجريبية شاملة لجميع خصائص المنصة بلا حدود ودون الحاجة لبطاقة بنكية مسبقة.</p>
+                    <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-medium rounded-xl">ابدأ التجربة الآن</button>
+                `;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
